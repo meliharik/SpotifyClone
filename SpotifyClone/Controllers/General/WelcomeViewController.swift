@@ -29,10 +29,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        signInButton.frame = CGRect(x: 20,
-                                    y: view.height-50-view.safeAreaInsets.bottom,
-                                    width: view.width-40,
-                                    height: 50)
+        signInButton.frame = CGRect(x: 20, y: view.height-50-view.safeAreaInsets.bottom, width: view.width-40, height: 50)
     }
     
     @objc func didTapSignIn(){
@@ -49,7 +46,16 @@ class WelcomeViewController: UIViewController {
     }
     
     private func handleSignIn(success: Bool){
+        guard success else {
+            let alert = UIAlertController(title: "Oops", message: "Something went wrong.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+            present(alert, animated: true)
+            return
+        }
         
+        let mainTabBarVC = TabBarViewController()
+        mainTabBarVC.modalPresentationStyle = .fullScreen
+        present(mainTabBarVC, animated: true)
     }
 
 
