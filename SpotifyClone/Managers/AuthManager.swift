@@ -15,10 +15,6 @@ class AuthManager {
     struct Constants {
         static let clientID = "cca778b301a74801af9d6c8dbbd31a6c"
         static let clientSecret = "f325a2bd247e4dceb8157b2f84bc50ed"
-//        static let clientID = "cca778b301a74801af9d6c8dbbd31a6c"
-//        static let clientSecret = "f325a2bd247e4dceb8157b2f84bc50ed"
-        static let clientID = "***"
-        static let clientSecret = "***"
         static let tokenAPIURL = "https://accounts.spotify.com/api/token"
         static let redirectURI = "https://zen-mestorf-24330c.netlify.app/"
         static let scopes = "user-read-private%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20user-follow-read%20user-library-modify%20user-library-read%20user-read-email"
