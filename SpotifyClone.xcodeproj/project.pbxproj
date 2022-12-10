@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA08B0942943C0AB00131B0C /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA08B0932943C0AB00131B0C /* SettingsModel.swift */; };
 		DA7A0928293E772000F7C445 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A0927293E772000F7C445 /* AppDelegate.swift */; };
 		DA7A092A293E772000F7C445 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A0929293E772000F7C445 /* SceneDelegate.swift */; };
 		DA7A092C293E772000F7C445 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A092B293E772000F7C445 /* HomeViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA08B0932943C0AB00131B0C /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		DA7A0924293E772000F7C445 /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7A0927293E772000F7C445 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA7A0929293E772000F7C445 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				DA7A0961293E7BB900F7C445 /* Artist.swift */,
 				DA7A0963293E7BC700F7C445 /* UserProfile.swift */,
 				DAB62DD2293F70FD00F4C341 /* AuthResponse.swift */,
+				DA08B0932943C0AB00131B0C /* SettingsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				DA7A0960293E7BAB00F7C445 /* AudioTrack.swift in Sources */,
 				DA7A092C293E772000F7C445 /* HomeViewController.swift in Sources */,
 				DA7A094A293E7A7E00F7C445 /* AuthViewController.swift in Sources */,
+				DA08B0942943C0AB00131B0C /* SettingsModel.swift in Sources */,
 				DA7A0928293E772000F7C445 /* AppDelegate.swift in Sources */,
 				DA7A0964293E7BC700F7C445 /* UserProfile.swift in Sources */,
 				DA7A0966293E848000F7C445 /* Extensions.swift in Sources */,
