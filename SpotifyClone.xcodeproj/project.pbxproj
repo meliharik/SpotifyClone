@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D68C718F3B80F1E22CA15E3E /* Pods_SpotifyClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8453DE526D149897BDDF54E /* Pods_SpotifyClone.framework */; };
 		DA08B0942943C0AB00131B0C /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA08B0932943C0AB00131B0C /* SettingsModel.swift */; };
+		DA2D8DD129486D8D00FB14E5 /* NewReleasesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2D8DD029486D8D00FB14E5 /* NewReleasesCellViewModel.swift */; };
 		DA7A0928293E772000F7C445 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A0927293E772000F7C445 /* AppDelegate.swift */; };
 		DA7A092A293E772000F7C445 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A0929293E772000F7C445 /* SceneDelegate.swift */; };
 		DA7A092C293E772000F7C445 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A092B293E772000F7C445 /* HomeViewController.swift */; };
@@ -47,6 +48,7 @@
 		2D007AFED1938BC297BF8EF0 /* Pods-SpotifyClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotifyClone.release.xcconfig"; path = "Target Support Files/Pods-SpotifyClone/Pods-SpotifyClone.release.xcconfig"; sourceTree = "<group>"; };
 		56F700358A4B81F5203B402F /* Pods-SpotifyClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotifyClone.debug.xcconfig"; path = "Target Support Files/Pods-SpotifyClone/Pods-SpotifyClone.debug.xcconfig"; sourceTree = "<group>"; };
 		DA08B0932943C0AB00131B0C /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		DA2D8DD029486D8D00FB14E5 /* NewReleasesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCellViewModel.swift; sourceTree = "<group>"; };
 		DA7A0924293E772000F7C445 /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7A0927293E772000F7C445 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA7A0929293E772000F7C445 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		DA7A093D293E77A600F7C445 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				DA2D8DD029486D8D00FB14E5 /* NewReleasesCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				DA7A0944293E7A3900F7C445 /* SearchViewController.swift in Sources */,
 				DA7A095E293E7B9F00F7C445 /* Playlist.swift in Sources */,
 				DA7A0958293E7B3F00F7C445 /* AuthManager.swift in Sources */,
+				DA2D8DD129486D8D00FB14E5 /* NewReleasesCellViewModel.swift in Sources */,
 				DA7A0956293E7B1800F7C445 /* SearchResultsViewController.swift in Sources */,
 				DABBF053294621F6002F2CF0 /* APIImage.swift in Sources */,
 				DA7A094C293E7A8F00F7C445 /* WelcomeViewController.swift in Sources */,
