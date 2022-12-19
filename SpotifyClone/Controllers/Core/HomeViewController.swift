@@ -15,6 +15,10 @@ enum BrowseSectionType {
 
 class HomeViewController: UIViewController {
     
+    private var newAlbums: [Album] = []
+    private var tracks: [AudioTrack] = []
+    private var playlists: [Playlist] = []
+    
     private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _  -> NSCollectionLayoutSection? in
         return HomeViewController.createSectionLayout(section: sectionIndex)
     })
@@ -32,7 +36,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Browse"
-        extendedLayoutIncludesOpaqueBars = true;
+//        extendedLayoutIncludesOpaqueBars = true;
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .done, target: self, action: #selector(didTapSettings))
         
@@ -133,6 +137,11 @@ class HomeViewController: UIViewController {
     }
     
     private func configureModels(newAlbums: [Album], tracks: [AudioTrack], playlists: [Playlist]){
+        self.newAlbums = newAlbums
+        self.tracks = tracks
+        self.playlists = playlists
+        
+        
         sections.append(.newReleases(viewModels: newAlbums.compactMap({
             
             return NewReleasesCellViewModel(name: $0.name, artworkURL: URL(string: $0.images.first?.url ?? ""), numberOfTracks: $0.total_tracks, artistName: $0.artists.first?.name ?? "-")
@@ -144,7 +153,7 @@ class HomeViewController: UIViewController {
         
         sections.append(.recommendedTracks(viewModels: tracks.compactMap({
             
-            return RecommendedTrackCellViewModel(name: $0.name, artistName: $0.artists.first?.name ?? "-", artworkURL: URL(string: $0.album.images.first?.url ?? ""))
+            return RecommendedTrackCellViewModel(name: $0.name, artistName: $0.artists.first?.name ?? "-", artworkURL: URL(string: $0.album?.images.first?.url ?? ""))
         })))
         collectionView.reloadData()
     }
@@ -207,6 +216,30 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let section = sections[indexPath.section]
+        
+        switch section {
+        case .featuredPlaylists:
+            let playlist = playlists[indexPath.row]
+            let vc = PlaylistViewController(playlist: playlist)
+            vc.title = playlist.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+            break
+        case .newReleases:
+            let album = newAlbums[indexPath.row]
+            let vc = AlbumViewController(album: album)
+            vc.title = album.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+            break
+        case .recommendedTracks:
+            break
+        }
     }
     
     static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
