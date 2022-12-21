@@ -25,7 +25,7 @@ class AuthManager {
     public var signInURL: URL? {
         
         let base = "https://accounts.spotify.com/authorize"
-        let string = "\(base)?response_type=code&client_id=\(Constants.clientID)&scope=\(Constants.scopes)&redirect_uri=\(Constants.redirectURI)&show_dialog+TRUE"
+        let string = "\(base)?response_type=code&client_id=\(Constants.clientID)&scope=\(Constants.scopes)&redirect_uri=\(Constants.redirectURI)&show_dialog=TRUE"
         return URL(string: string)
     }
     
@@ -42,7 +42,7 @@ class AuthManager {
     }
     
     private var tokenExpirationDate: Date? {
-        return UserDefaults.standard.string(forKey: "expirationDate") as? Date
+        return UserDefaults.standard.object(forKey: "expirationDate") as? Date
     }
     
     private var shouldRefreshToken: Bool{
@@ -132,23 +132,28 @@ class AuthManager {
     }
     
     public func refreshIfNeeded(completion: ((Bool) -> Void)?) {
+        print("1")
         guard !refreshingToken else {
             return
         }
+        print("2")
         
         guard shouldRefreshToken else {
             completion?(true)
             return
         }
+        print("3")
         
         guard let refreshToken = self.refreshToken else {
             return
         }
+        print("4")
         
         //refresh the token
         guard let url = URL(string: Constants.tokenAPIURL) else {
             return
         }
+        print("5")
         
         refreshingToken = true
         
@@ -161,7 +166,7 @@ class AuthManager {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded ", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
         request.httpBody = components.query?.data(using: .utf8)
         
@@ -205,12 +210,38 @@ class AuthManager {
     }
     
     private func cacheToken(result: AuthResponse){
-        UserDefaults.standard.set(result.access_token, forKey: "access_token")
+        UserDefaults.standard.setValue(result.access_token, forKey: "access_token")
         
         if let refresh_token = result.refresh_token {
-            UserDefaults.standard.set(refresh_token, forKey: "refresh_token")
+            UserDefaults.standard.setValue(refresh_token, forKey: "refresh_token")
         }
         
-        UserDefaults.standard.set(Date().addingTimeInterval(TimeInterval(result.expires_in)), forKey: "expirationDate")
+//        print("expires "+String(result.expires_in))
+        
+//        let modifiedDate = Date().addingTimeInterval(TimeInterval(result.expires_in))
+//        let date = Date()
+//        print("date")
+//        print(date)
+//        print("modifiedDate")
+//        print(modifiedDate)
+        
+        // cant save expirationDate
+        
+        UserDefaults.standard.set(Date().addingTimeInterval(TimeInterval(result.expires_in)),
+                                        forKey: "expirationDate")
+//        print("expiratinDate: ")
+//        print(UserDefaults.standard.object(forKey: "expirationDate"))
+        
+//        let defaults = UserDefaults.standard
+//        defaults.set(Date(), forKey: "currentDate")
+//
+//        if let storedDate = defaults.object(forKey: "currentDate") as? Date {
+//            print("Stored Date: ", storedDate)
+//        }
+//        print("userDefaulkts2: ")
+//        print(UserDefaults.standard.string(forKey: "expirationDate"))
+//
+//        print("access token: ")
+//        print(UserDefaults.standard.string(forKey: "access_token"))
     }
 }
