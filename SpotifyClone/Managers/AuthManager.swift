@@ -132,28 +132,28 @@ class AuthManager {
     }
     
     public func refreshIfNeeded(completion: ((Bool) -> Void)?) {
-        print("1")
+//        print("1")
         guard !refreshingToken else {
             return
         }
-        print("2")
+//        print("2")
         
         guard shouldRefreshToken else {
             completion?(true)
             return
         }
-        print("3")
+//        print("3")
         
         guard let refreshToken = self.refreshToken else {
             return
         }
-        print("4")
+//        print("4")
         
         //refresh the token
         guard let url = URL(string: Constants.tokenAPIURL) else {
             return
         }
-        print("5")
+//        print("5")
         
         refreshingToken = true
         

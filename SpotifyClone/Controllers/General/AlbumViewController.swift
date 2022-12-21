@@ -9,7 +9,7 @@ import UIKit
 
 class AlbumViewController: UIViewController {
     
-    private var viewModels = [RecommendedTrackCellViewModel]()
+    private var viewModels = [AlbumCollectionViewCellViewModel]()
     
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { _, _ -> NSCollectionLayoutSection? in
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
@@ -54,8 +54,8 @@ class AlbumViewController: UIViewController {
         
         view.addSubview(collectionView)
         
-        collectionView.register(RecommendedTrackCollectionViewCell.self,
-                                forCellWithReuseIdentifier: RecommendedTrackCollectionViewCell.identifier
+        collectionView.register(AlbumTrackCollectionViewCell.self,
+                                forCellWithReuseIdentifier: AlbumTrackCollectionViewCell.identifier
         )
         
         collectionView.register(PlaylistHeaderCollectionReusableView.self,
@@ -70,9 +70,12 @@ class AlbumViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let model):
-                    //                    self?.viewModels = model.tracks.items.compactMap({
-                    //                        RecommendedTrackCellViewModel(name: $0.track.name, artistName: $0.track.artists.first?.name ?? "-", artworkURL: URL(string: $0.track.album?.images.first?.url ?? "-"))
-                    //                    })
+                    self?.viewModels = model.tracks.items.compactMap({
+                        AlbumCollectionViewCellViewModel(
+                            name: $0.name,
+                            artistName: $0.artists.first?.name ?? "-"
+                        )
+                    })
                     self?.collectionView.reloadData()
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -90,7 +93,7 @@ class AlbumViewController: UIViewController {
 
 extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendedTrackCollectionViewCell.identifier, for: indexPath) as? RecommendedTrackCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumTrackCollectionViewCell.identifier, for: indexPath) as? AlbumTrackCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.configure(with: viewModels[indexPath.row])
@@ -102,14 +105,14 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return UICollectionReusableView()
         }
         
-//        let headerViewModel = PlaylistHeaderViewViewModel(
-//            name: playlist.name,
-//            ownerName: playlist.owner.display_name,
-//            description: playlist.description,
-//            artworkURL: URL(string: playlist.images.first?.url ?? "")
-//        )
-//        header.configure(with: headerViewModel)
-//        header.delegate = self
+                let headerViewModel = PlaylistHeaderViewViewModel(
+                    name: album.name,
+                    ownerName: album.artists.first?.name,
+                    description: "Release Date: \(album.release_date.formattedSpotifyDateString)",
+                    artworkURL: URL(string: album.images.first?.url ?? "")
+                )
+                header.configure(with: headerViewModel)
+                header.delegate = self
         
         return header
     }
