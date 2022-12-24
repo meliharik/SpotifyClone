@@ -108,14 +108,14 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
             return UICollectionReusableView()
         }
         
-                let headerViewModel = PlaylistHeaderViewViewModel(
-                    name: album.name,
-                    ownerName: album.artists.first?.name,
-                    description: "Release Date: \(album.release_date.formattedSpotifyDateString)",
-                    artworkURL: URL(string: album.images.first?.url ?? "")
-                )
-                header.configure(with: headerViewModel)
-                header.delegate = self
+        let headerViewModel = PlaylistHeaderViewViewModel(
+            name: album.name,
+            ownerName: album.artists.first?.name,
+            description: "Release Date: \(album.release_date.formattedSpotifyDateString)",
+            artworkURL: URL(string: album.images.first?.url ?? "")
+        )
+        header.configure(with: headerViewModel)
+        header.delegate = self
         
         return header
     }
@@ -130,13 +130,20 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let track = tracks[indexPath.row]
+        var track = tracks[indexPath.row]
+        track.album = self.album
         PlaybackPresenter.shared.startPlayback(from: self, track: track)
     }
 }
 
 extension AlbumViewController: PlaylistHeaderCollectionReusableViewDelegate {
     func playlistHeaderCollectionReusableViewDidTapPlayAll(_ header: PlaylistHeaderCollectionReusableView) {
-        PlaybackPresenter.shared.startPlayback(from: self, tracks: tracks)
+        let tracksWithAlbum: [AudioTrack] = tracks.compactMap({
+            var track = $0
+            track.album = self.album
+            return track
+        })
+        
+        PlaybackPresenter.shared.startPlayback(from: self, tracks: tracksWithAlbum)
     }
 }
