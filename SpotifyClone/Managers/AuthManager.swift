@@ -132,28 +132,28 @@ class AuthManager {
     }
     
     public func refreshIfNeeded(completion: ((Bool) -> Void)?) {
-//        print("1")
+        //        print("1")
         guard !refreshingToken else {
             return
         }
-//        print("2")
+        //        print("2")
         
         guard shouldRefreshToken else {
             completion?(true)
             return
         }
-//        print("3")
+        //        print("3")
         
         guard let refreshToken = self.refreshToken else {
             return
         }
-//        print("4")
+        //        print("4")
         
         //refresh the token
         guard let url = URL(string: Constants.tokenAPIURL) else {
             return
         }
-//        print("5")
+        //        print("5")
         
         refreshingToken = true
         
@@ -216,32 +216,19 @@ class AuthManager {
             UserDefaults.standard.setValue(refresh_token, forKey: "refresh_token")
         }
         
-//        print("expires "+String(result.expires_in))
-        
-//        let modifiedDate = Date().addingTimeInterval(TimeInterval(result.expires_in))
-//        let date = Date()
-//        print("date")
-//        print(date)
-//        print("modifiedDate")
-//        print(modifiedDate)
-        
-        // cant save expirationDate
-        
         UserDefaults.standard.set(Date().addingTimeInterval(TimeInterval(result.expires_in)),
-                                        forKey: "expirationDate")
-//        print("expiratinDate: ")
-//        print(UserDefaults.standard.object(forKey: "expirationDate"))
+                                  forKey: "expirationDate")
+    }
+    
+    public func signOut(completion: (Bool) -> Void){
+        UserDefaults.standard.setValue(nil,
+                                       forKey: "access_token")
         
-//        let defaults = UserDefaults.standard
-//        defaults.set(Date(), forKey: "currentDate")
-//
-//        if let storedDate = defaults.object(forKey: "currentDate") as? Date {
-//            print("Stored Date: ", storedDate)
-//        }
-//        print("userDefaulkts2: ")
-//        print(UserDefaults.standard.string(forKey: "expirationDate"))
-//
-//        print("access token: ")
-//        print(UserDefaults.standard.string(forKey: "access_token"))
+        UserDefaults.standard.setValue(nil,
+                                       forKey: "refresh_token")
+        
+        UserDefaults.standard.set(nil,
+                                  forKey: "expirationDate")
+        completion(true)
     }
 }

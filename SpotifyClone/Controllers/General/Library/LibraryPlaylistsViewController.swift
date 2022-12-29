@@ -84,6 +84,7 @@ class LibraryPlaylistsViewController: UIViewController {
             tableView.isHidden = false
         }
     }
+    
     public func showCreatePlaylistAlert(){
         let alert = UIAlertController(title: "New Playlist", message: "Enter playlist name.", preferredStyle: .alert)
         alert.addTextField(){ textfield in
@@ -99,11 +100,10 @@ class LibraryPlaylistsViewController: UIViewController {
             APICaller.shared.createPlaylist(with: text) { success in
                 DispatchQueue.main.async {
                     if success {
-                        guard let strongSelf = self else {
-                            return
-                        }
-                        strongSelf.tableView.reloadData()
+                        HapticsManager.shared.vibrate(for: .success)
+                        self?.fetchData()
                     } else {
+                        HapticsManager.shared.vibrate(for: .error)
                         print("failed to create palylist")
                     }
                 }
@@ -140,6 +140,8 @@ extension LibraryPlaylistsViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
+        
         let playlist = playlists[indexPath.row]
         
         guard selectionHandler == nil else {

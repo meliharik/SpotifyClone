@@ -71,3 +71,7 @@ extension DateFormatter {
         return dateFormatter
     }()
 }
+
+extension Notification.Name {
+    static let albumSavedNotification = Notification.Name("albumSavedNotification")
+}
