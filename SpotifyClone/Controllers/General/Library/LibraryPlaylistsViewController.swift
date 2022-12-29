@@ -90,17 +90,22 @@ class LibraryPlaylistsViewController: UIViewController {
             textfield.placeholder = "Playlist..."
         }
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { [weak self] _ in
             guard let field = alert.textFields?.first,
                   let text = field.text,
                   !text.trimmingCharacters(in: .whitespaces).isEmpty else {
                 return
             }
             APICaller.shared.createPlaylist(with: text) { success in
-                if success {
-                    
-                } else {
-                    print("failed to create palylist")
+                DispatchQueue.main.async {
+                    if success {
+                        guard let strongSelf = self else {
+                            return
+                        }
+                        strongSelf.tableView.reloadData()
+                    } else {
+                        print("failed to create palylist")
+                    }
                 }
             }
             
@@ -146,6 +151,7 @@ extension LibraryPlaylistsViewController: UITableViewDelegate, UITableViewDataSo
         let vc = PlaylistViewController(playlist: playlist)
         
         vc.navigationItem.largeTitleDisplayMode = .never
+        vc.isOwner = true
         navigationController?.pushViewController(vc, animated: true)
     }
     
